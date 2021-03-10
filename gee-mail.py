@@ -33,7 +33,7 @@ def email_sending():
 
     email.starttls()  #crypted tunnel
 
-    mail_user = str(input("\nYour username (without domain): "))
+    mail_user = str(input("\nYour username (works also without domain): "))
 
     user_pass = getpass.getpass()
 
