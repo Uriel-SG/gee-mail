@@ -22,7 +22,7 @@ def final():
         email_sending()
 
 def email_sending():
-    mail_object = str(input("\nObject: "))
+    mail_object = str(input("\nSubject: "))
     complete_object = "Subject: " + mail_object + "\n"
     mail_content = str(input("\nContent: "))
     message = complete_object + mail_content
