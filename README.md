@@ -9,7 +9,7 @@ Perfect for those who want to send emails quickly without opening an email clien
 ✅ Fast email sending via **Gmail SMTP**  
 ✅ Supports **secure authentication with "App Password"**  
 ✅ Simple and intuitive **console interface**  
-✅ Compatible with **Python 3**  
+✅ 100% **Python 3**  
 
 ---
 
