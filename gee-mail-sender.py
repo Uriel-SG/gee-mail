@@ -4,11 +4,11 @@ import time
 
 print("\n################## gee-mail sender ###################")
 time.sleep(1.5)
-print("\nRemeber to activate 'less secure app' access on gmail, \nor this script will not work")
+print("\nRemember to use an 'App Password' instead of your Gmail password, \nas 'Less secure app access' is no longer supported.")
 
 def final():
-    ending = input()
-    if ending == "n" or ending == "N":
+    ending = input("\nDo you want to send another email? (y/n): ").strip().lower()
+    if ending == "n":
         print("\n##############################")
         print("\nBye bye!")
         time.sleep(1)
@@ -16,42 +16,39 @@ def final():
         time.sleep(1)
         print("\n     Uriel-SG")
         print("\n##############################")
-        input()
         exit()
-    if ending == "y" or ending == "Y":
+    elif ending == "y":
         email_sending()
+    else:
+        print("\nInvalid option. Try again.")
+        final()
 
 def email_sending():
-    mail_object = str(input("\nSubject: "))
-    complete_object = "Subject: " + mail_object + "\n"
-    mail_content = str(input("\nContent: "))
-    message = complete_object + mail_content
+    mail_subject = input("\nSubject: ").strip()
+    mail_content = input("\nContent: ").strip()
 
-    email = smtplib.SMTP("smtp.gmail.com", 587)  #server and port
+    # Intestazioni corrette
+    mail_user = input("\nYour username (without @gmail.com): ").strip()
+    mailreceiver = input("\nReceiver: ").strip()
 
-    email.ehlo  #connect to server
+    mailsender = f"{mail_user}@gmail.com"
+    message = f"From: {mailsender}\nTo: {mailreceiver}\nSubject: {mail_subject}\n\n{mail_content}"
 
-    email.starttls()  #crypted tunnel
+    try:
+        email = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        
+        user_pass = getpass.getpass("\nYour App Password: ")
 
-    mail_user = str(input("\nYour username (works also without domain): "))
+        email.login(mailsender, user_pass)
+        email.sendmail(mailsender, mailreceiver, message)
+        email.quit()
 
-    user_pass = getpass.getpass()
+        print("\nEmail sent successfully!")
 
-    email.login(str(mail_user), str(user_pass))
-
-    mailsender = str(mail_user + "@" + "gmail.com")
-    mailreceiver = input("\nReceiver: ")
-
-    email.sendmail(mailsender, mailreceiver, message)
-
-    email.quit()
-
-    print("\nDo you want to send another e-mail? (y/n)")
+    except Exception as e:
+        print("\nFailed to send email.")
+        print("Error:", e)
 
     final()
 
 email_sending()
-final()
-
-
-
