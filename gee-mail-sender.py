@@ -40,7 +40,7 @@ def email_sending():
         user_pass = getpass.getpass("\nYour App Password: ")
 
         email.login(mailsender, user_pass)
-        email.sendmail(mailsender, mailreceiver, message)
+        email.sendmail(mailsender, mailreceiver, message.encode("utf-8"))
         email.quit()
 
         print("\nEmail sent successfully!")
